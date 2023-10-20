@@ -1,7 +1,14 @@
+import { LandingFooter, Navbar } from "layouts";
 interface LandingLayoutProps {
   children: React.ReactNode;
 }
 
 export default function LandingLayout({ children }: LandingLayoutProps) {
-  return <div className="min-h-screen">{children}</div>;
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      <main className="h-[800px]">{children}</main>
+      <LandingFooter />
+    </div>
+  );
 }
