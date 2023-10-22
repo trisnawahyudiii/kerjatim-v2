@@ -11,9 +11,9 @@ import {
 
 export const LandingFooter = () => {
   return (
-    <div className="bg-pr-blue-2 text-white">
+    <div className="bg-pr-blue-2 pt-5 text-white">
       <Container className="grid grid-cols-12 gap-24">
-        <div className="col-span-5 flex flex-col gap-3">
+        <div className="col-span-4 flex flex-col gap-3">
           <h1 className="text-xl">
             <b>Kerjatim</b>
           </h1>
@@ -28,12 +28,12 @@ export const LandingFooter = () => {
             <p>Email : Kerjatim.mka@gmail.com</p>
           </div>
         </div>
-        <div className="col-span-2 flex flex-col gap-3">
+        <div className="col-span-3 flex flex-col gap-3">
           <h1 className="text-xl">
             <b>Usefull Links</b>
           </h1>
-          {footerConfig.map(({ id, name, href }) => (
-            <Link id={String(id)} href={href}>
+          {footerConfig.map(({ id, name, href }, index) => (
+            <Link key={index} id={String(id)} href={href}>
               {name}
             </Link>
           ))}
@@ -67,7 +67,7 @@ export const LandingFooter = () => {
         </div>
       </Container>
       <Container>
-        <div className="flex items-center justify-center w-100 text-white text-xl gap-3 my-4">
+        <div className="w-100 my-4 flex items-center justify-center gap-3 text-xl text-white">
           <Link href="#">
             <FaFacebookF />
           </Link>
@@ -86,7 +86,7 @@ export const LandingFooter = () => {
         </div>
       </Container>
       <hr className="h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
-      <div className="py-3 w-100 flex items-center justify-center">
+      <div className="w-100 flex items-center justify-center py-5">
         <p>Copyright © 2023 Kerjatim | All Rights Reserved </p>
       </div>
     </div>
