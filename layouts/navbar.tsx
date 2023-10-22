@@ -24,7 +24,7 @@ export const Navbar = () => {
         </Link>
 
         {/* navlinks */}
-        <div className="flex gap-5 items-center">
+        <div className="flex items-center gap-5">
           {navigationConfig.map((navigation) => {
             return (
               <Link
@@ -42,7 +42,7 @@ export const Navbar = () => {
           ) : (
             <Link
               href="/authenticate"
-              className="px-4 py-2 bg-blue-600 font-semibold rounded-xl text-slate-200 hover:text-blue-400 hover:bg-transparent hover:ring hover:ring-1 hover:ring-blue-400 transition ease-in-out duration:300"
+              className="duration:300 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-slate-200 transition  ease-in-out hover:bg-transparent hover:text-blue-400 hover:ring-1 hover:ring-blue-400"
             >
               SignIn
             </Link>

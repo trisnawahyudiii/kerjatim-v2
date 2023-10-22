@@ -1,5 +1,6 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
 
 // PRISMA_ADAPTER
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -16,6 +17,10 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID ?? "",
       clientSecret: GOOGLE_CLIENT_SECRET ?? "",
+    }),
+    EmailProvider({
+      server: process.env.EMAIL_SERVER,
+      from: process.env.EMAIL_FROM,
     }),
   ],
   callbacks: {
@@ -52,6 +57,10 @@ const handler = NextAuth({
         picture: dbUser.image,
       };
     },
+  },
+  pages: {
+    signIn: "/authenticate",
+    verifyRequest: "/authenticate?verify-request=true",
   },
 });
 

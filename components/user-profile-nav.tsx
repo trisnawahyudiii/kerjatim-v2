@@ -12,6 +12,8 @@ import {
 } from "components/ui";
 import { signOut, useSession } from "next-auth/react";
 
+import { BiUser, BiPowerOff } from "react-icons/bi";
+
 interface UserProfileNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const UserProfileNav: React.FC<UserProfileNavProps> = ({
@@ -28,14 +30,24 @@ export const UserProfileNav: React.FC<UserProfileNavProps> = ({
               src={session?.user?.image!}
               alt={session?.user?.name!}
             />
-            <AvatarFallback>{session?.user?.email}</AvatarFallback>
+            <AvatarFallback>
+              {session?.user?.email?.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuContent className="bg-white" align="end" sideOffset={10}>
+          <DropdownMenuLabel className="text-center">
+            <h1 className="text-xl font-bold">{session?.user?.name}</h1>
+            <p>{session?.user?.email}</p>
+          </DropdownMenuLabel>
+
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem className="text-red-600">
+
+          <DropdownMenuItem className="flex gap-2">
+            <BiUser /> Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex gap-2 text-red-600 focus:text-red-600">
+            <BiPowerOff />
             <button onClick={() => signOut()}>SignOut</button>
           </DropdownMenuItem>
         </DropdownMenuContent>
