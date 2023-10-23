@@ -6,6 +6,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 // auth
 import { AuthProvider } from "features/auth/providers";
+import React from "react";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +25,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({
@@ -29,7 +35,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Providers>{children}</Providers>
+        </AuthProvider>
       </body>
     </html>
   );
