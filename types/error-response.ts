@@ -1,8 +1,7 @@
 import { AxiosError } from "axios";
 
 export type ErrorResponse = AxiosError<{
-  status: boolean;
-  code: number;
+  success: boolean;
   message: string;
-  errorMessage: string[];
+  details: string[];
 }>;
