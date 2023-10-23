@@ -6,6 +6,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 // auth
 import { AuthProvider } from "features/auth/providers";
+import React from "react";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +35,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Providers>{children}</Providers>
+        </AuthProvider>
       </body>
     </html>
   );
