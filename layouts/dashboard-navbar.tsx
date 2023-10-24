@@ -1,6 +1,6 @@
 "use client";
 
-import { UserProfileNav } from "@/components";
+import { UserProfileNav } from "components/user-profile-nav";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,9 +8,9 @@ import Link from "next/link";
 export const DashboardNavbar = () => {
   const { data: session } = useSession();
   return (
-    <nav className="flex justify-between h-[60px] bg-pr-blue-1 items-center">
+    <nav className="flex h-[60px] items-center justify-between bg-pr-blue-1">
       <Link href="/" className="h-full">
-        <div className="flex items-center justify-center bg-white px-[60px] rounded-br-[60px] rounded-tl-[60px] h-full">
+        <div className="flex h-full items-center justify-center rounded-br-[60px] rounded-tl-[60px] bg-white px-[60px]">
           <Image
             src="/logo-kerjatim.png"
             alt="logo kerjatim"

@@ -2,16 +2,15 @@
 
 import { ErrorMessage, useFormikContext } from "formik";
 import { Workspace } from "@prisma/client";
-import { Input } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
+import Image from "next/image";
 
 export const FormWorkspace = () => {
   const { values, errors, handleChange, handleSubmit } =
     useFormikContext<Partial<Workspace>>();
 
-  console.log(errors);
-  console.log(values);
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <label htmlFor="name" className="flex flex-col">
         Nama Workspace*
         <Input
@@ -41,6 +40,7 @@ export const FormWorkspace = () => {
           onChange={handleChange}
         />
       </label>
+      <Button type="submit">Simpan</Button>
     </div>
   );
 };

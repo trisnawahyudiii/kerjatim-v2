@@ -1,4 +1,5 @@
-import { LandingFooter, Navbar } from "layouts";
+import { Navbar, LandingFooter } from "@/layouts";
+
 interface LandingLayoutProps {
   children: React.ReactNode;
 }

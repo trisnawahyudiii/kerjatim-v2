@@ -11,7 +11,6 @@ import {
   AvatarFallback,
 } from "components/ui";
 import { signOut, useSession } from "next-auth/react";
-
 import { BiUser, BiPowerOff } from "react-icons/bi";
 
 interface UserProfileNavProps extends React.HTMLAttributes<HTMLDivElement> {}
