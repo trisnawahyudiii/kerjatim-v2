@@ -6,29 +6,13 @@ import {
   Avatar,
   AvatarFallback,
   Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui";
-import {
-  CreateWorkspaceModal,
-  FormWorkspace,
-} from "@/features/workspace/components";
+import { CreateWorkspaceModal } from "@/features/workspace/components";
 import { Workspaces } from "@/features/workspace/core";
-import {
-  useCreateWorkspace,
-  useGetAllWorkspace,
-} from "@/features/workspace/hooks";
-import { workspaceValidationSchema } from "@/features/workspace/utilities";
-import { Formik, Form } from "formik";
+import { useCreateWorkspace } from "@/features/workspace/hooks";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineHome, AiOutlinePlus } from "react-icons/ai";

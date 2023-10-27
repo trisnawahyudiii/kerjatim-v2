@@ -35,7 +35,7 @@ export const CreateWorkspaceModal = ({
     <>
       <Dialog.Root modal>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Dialog.Trigger asChild>
               <Button variant="default" size="icon">
                 <AiOutlinePlus />
