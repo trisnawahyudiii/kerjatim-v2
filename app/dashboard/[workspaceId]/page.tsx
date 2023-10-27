@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui";
+
 type PageProps = {
   params: {
     workspaceId: string;

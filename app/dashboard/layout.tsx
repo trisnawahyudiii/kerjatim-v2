@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen">
       <DashboardNavbar />
-      <div className="flex">
+      <div className="flex w-screen">
         <Sidebar data={data} isFetching={isFetching} refetch={refetch} />
         {children}
       </div>

@@ -8,7 +8,6 @@ import { AuthPayload } from "@/features/auth/core";
 import Image from "next/image";
 import { LoginForm, VerifyRequestDialog } from "@/features/auth/components";
 import { useState, useEffect } from "react";
-import { LoadingSpiner } from "@/components";
 
 type AuthenticatePageProps = {
   searchParams?: Record<"verify-request", string>;
