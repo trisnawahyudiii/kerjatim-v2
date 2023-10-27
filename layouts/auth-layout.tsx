@@ -15,7 +15,7 @@ export const AuthPageLayout = ({ children, className }: AuthLayoutProps) => {
         <DashboardNavbar />
       </div>
       {/* swiper */}
-      <div className="hidden flex-col bg-pr-blue-1 md:flex">
+      <div className="hidden flex-col  bg-gradient-to-b from-foreground to-pr-blue-1 md:flex">
         <Link href="/">
           <div className="flex h-fit w-fit items-center justify-center rounded-br-[64px] bg-white px-[64px] py-3">
             <Image

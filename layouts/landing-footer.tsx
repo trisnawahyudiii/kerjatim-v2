@@ -11,9 +11,9 @@ import {
 
 export const LandingFooter = () => {
   return (
-    <div className="bg-pr-blue-2 pt-5 text-white">
-      <Container className="grid grid-cols-12 gap-24">
-        <div className="col-span-4 flex flex-col gap-3">
+    <div className="bg-gradient-to-br from-foreground to-pr-blue-2 pt-5 text-white">
+      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-24">
+        <div className="col-span-1 flex flex-col gap-3 lg:col-span-4">
           <h1 className="text-xl">
             <b>Kerjatim</b>
           </h1>
@@ -28,7 +28,7 @@ export const LandingFooter = () => {
             <p>Email : Kerjatim.mka@gmail.com</p>
           </div>
         </div>
-        <div className="col-span-3 flex flex-col gap-3">
+        <div className="col-span-1 flex flex-col gap-3 lg:col-span-3">
           <h1 className="text-xl">
             <b>Usefull Links</b>
           </h1>
@@ -38,7 +38,7 @@ export const LandingFooter = () => {
             </Link>
           ))}
         </div>
-        <div className="col-span-5 flex flex-col gap-3">
+        <div className="col-span-1 flex flex-col gap-3 lg:col-span-5">
           <h1 className="text-xl">
             <b>Newsletter</b>
           </h1>
@@ -51,15 +51,15 @@ export const LandingFooter = () => {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="flex flex-col gap-3 lg:flex-row ">
             <Input
               type="text"
               placeholder="Masukkan Email"
-              className="col-span-2"
+              className="w-full bg-white lg:w-2/3"
             />
             <Button
               variant="default"
-              className="bg-[#FFCE51] text-black/90 hover:bg-yellow-500"
+              className="w-full bg-[#FFCE51] text-black/90 hover:bg-yellow-500 lg:w-1/3"
             >
               Berlangganan
             </Button>

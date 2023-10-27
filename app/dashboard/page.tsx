@@ -1,9 +1,7 @@
 "use client";
 
+import UnderConstruction from "@/components/under-construction";
+
 export default function DashboardPage() {
-  return (
-    <div className="flex">
-      <p>Lorem ipsum dolor sit amet.</p>
-    </div>
-  );
+  return <UnderConstruction />;
 }
