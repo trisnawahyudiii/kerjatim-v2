@@ -45,13 +45,14 @@ export const Sidebar = ({ data, isFetching, refetch }: SidebarProps) => {
   const closeModal = () => setOpen(false);
 
   return (
-    <div className="flex h-[calc(100vh-60px)] min-w-[100px] max-w-[100px] flex-col items-center gap-3 py-2 shadow">
+    <div className="shadow-custom z-20 flex h-[calc(100vh-60px)] min-w-[100px] max-w-[100px] flex-col items-center gap-3 bg-slate-50 py-2">
       <div className="flex h-[calc(100vh-60px)] w-full flex-col items-center p-2">
         <Link href="/dashboard" className="my-3">
           <Button>
             <AiOutlineHome />
           </Button>
         </Link>
+
         {isFetching ? (
           <LoadingSpiner />
         ) : (
@@ -86,7 +87,6 @@ export const Sidebar = ({ data, isFetching, refetch }: SidebarProps) => {
           onSubmit={handleSubmit}
         />
       </div>
-      {/* <ModeToggle /> */}
     </div>
   );
 };

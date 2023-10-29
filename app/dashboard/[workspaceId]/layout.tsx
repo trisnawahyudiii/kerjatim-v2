@@ -1,11 +1,15 @@
-interface LayoutProps {
-  children: React.ReactNode;
-}
+import { BoardSidebar } from "@/features/board/components/board-sidebar";
 
-export default function Layout({ children }: LayoutProps) {
+type LayoutProps = {
+  children: React.ReactNode;
+  params?: {
+    workspaceId?: string;
+  };
+};
+export default function Layout({ children, params }: LayoutProps) {
   return (
     <>
-      {/* sidebar here */}
+      <BoardSidebar workspaceId={params?.workspaceId!} />
       {children}
     </>
   );

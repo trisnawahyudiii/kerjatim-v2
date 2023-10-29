@@ -1,9 +1,8 @@
-import { db } from "@/lib";
+import { DuplicateRecordError, db } from "@/lib";
 import { authOptions } from "@/lib/auth";
 import { handleError } from "@/utilities/handle-error";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
 import { Prisma } from "@prisma/client";
+import { getServerSession } from "next-auth";
 //list
 export async function GET(req: Request, res: Response) {
   try {
@@ -17,7 +16,11 @@ export async function GET(req: Request, res: Response) {
 
     const workspaces = await db.workspace.findMany({
       where: {
-        userId: user.id,
+        WorkspaceMember: {
+          some: {
+            userId: user.id,
+          },
+        },
       },
       include: {
         User: {
@@ -70,7 +73,13 @@ export async function POST(req: Request, res: Response) {
     const { user } = session;
     const { name, description } = await req.json();
 
-    console.log("create workspace: ", name, description);
+    const exist = await db.workspace.findFirst({
+      where: { name },
+    });
+
+    if (exist) {
+      throw new DuplicateRecordError(name);
+    }
 
     let workspaceInput: Prisma.WorkspaceCreateInput = {
       name,

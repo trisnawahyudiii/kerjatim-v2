@@ -3,7 +3,11 @@ import { handleError } from "@/utilities/handle-error";
 import { getServerSession } from "next-auth";
 
 // get single
-export async function GET(req: Request, res: Response) {
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } },
+  res: Response,
+) {
   try {
     const session = getServerSession();
 
@@ -11,7 +15,7 @@ export async function GET(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { id } = await req.json();
+    const { id } = params;
 
     const workspace = await db.workspace.findFirst({
       where: { id: id },
@@ -59,7 +63,11 @@ export async function GET(req: Request, res: Response) {
 }
 
 // update
-export async function PUT(req: Request, res: Response) {
+export async function PUT(
+  req: Request,
+  { params }: { params: { id: string } },
+  res: Response,
+) {
   try {
     const session = getServerSession();
 
@@ -67,7 +75,8 @@ export async function PUT(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { name, description, id } = await req.json();
+    const { id } = params;
+    const { name, description } = await req.json();
 
     const targetWorkspace = await db.workspace.findFirst({
       where: { id: id },
@@ -121,7 +130,11 @@ export async function PUT(req: Request, res: Response) {
 }
 
 // delete
-export async function DELETE(req: Request, res: Response) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } },
+  res: Response,
+) {
   try {
     const session = getServerSession();
 
@@ -129,7 +142,7 @@ export async function DELETE(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { name, description, id } = await req.json();
+    const { id } = params;
 
     const targetWorkspace = await db.workspace.findFirst({
       where: { id: id },
