@@ -33,18 +33,18 @@ export const CreateWorkspaceModal = ({
     <>
       <Dialog modal open={open} onOpenChange={setOpen}>
         {/* trigger modal */}
-        <DialogTrigger>
-          <Tooltip>
+        <Tooltip>
+          <DialogTrigger asChild>
             <TooltipTrigger asChild>
               <Button variant="default" size="icon">
                 <AiOutlinePlus />
               </Button>
             </TooltipTrigger>
-            <TooltipContent side="right">
-              <p>Create new orkspace</p>
-            </TooltipContent>
-          </Tooltip>
-        </DialogTrigger>
+          </DialogTrigger>
+          <TooltipContent side="right">
+            <p>Create new orkspace</p>
+          </TooltipContent>
+        </Tooltip>
 
         {/* content */}
         <DialogContent className="grid h-fit w-1/2 max-w-xl bg-background p-0 md:grid-cols-2 lg:max-w-4xl">
@@ -63,7 +63,7 @@ export const CreateWorkspaceModal = ({
               </Form>
             </Formik>
           </div>
-          <div className="col-span-1 hidden flex-col items-center justify-center gap-3 bg-zinc-200/80 p-5 text-center md:flex">
+          <div className="col-span-1 hidden flex-col items-center justify-center gap-3 bg-zinc-200/80 p-8 text-center md:flex">
             <h1 className=" text-xl font-bold">
               Mari Bangun <span className="text-foreground">Workspace</span>
             </h1>

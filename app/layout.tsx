@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 
 import { AuthProvider } from "features/auth/providers";
 import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function RootLayout({
         <AuthProvider>
           <Providers>{children}</Providers>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

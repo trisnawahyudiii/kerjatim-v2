@@ -9,12 +9,13 @@ import {
   SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
 
+import { Lock, ShieldCheck } from "lucide-react";
+
 export const FormBoard = () => {
-  const { values, errors, handleChange, handleSubmit } =
+  const { values, errors, handleChange, setValues } =
     useFormikContext<Partial<Boards>>();
 
   return (
@@ -25,7 +26,7 @@ export const FormBoard = () => {
           id="name"
           name="name"
           type="text"
-          placeholder="My workspace"
+          placeholder="My App Project"
           value={values.name}
           onChange={handleChange}
           className={errors.name ? "border-red-500" : ""}
@@ -37,23 +38,40 @@ export const FormBoard = () => {
         />
       </label>
 
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Privacy" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Privacy</SelectLabel>
-            <SelectItem value="1">Public</SelectItem>
-            <SelectItem value="0">Private</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <ErrorMessage
-        name="isPublic"
-        component="div"
-        className="mt-1 text-[13px] text-red-500"
-      />
+      <div>
+        <span>Privasi*</span>
+        <Select
+          name="isPublic"
+          value={String(values.isPublic)}
+          onValueChange={(value) =>
+            setValues({ ...values, isPublic: Boolean(value) })
+          }
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Privacy" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="true">
+                <span className="flex items-center gap-3">
+                  <ShieldCheck />
+                  Public
+                </span>
+              </SelectItem>
+              <SelectItem value="false">
+                <span className="flex items-center gap-3">
+                  <Lock /> Private
+                </span>
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <ErrorMessage
+          name="isPublic"
+          component="div"
+          className="mt-1 text-[13px] text-red-500"
+        />
+      </div>
       <Button type="submit">Simpan</Button>
     </div>
   );

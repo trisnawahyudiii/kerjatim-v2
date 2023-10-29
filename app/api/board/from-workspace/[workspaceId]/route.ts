@@ -9,7 +9,6 @@ export async function GET(
   res: Response,
 ) {
   try {
-    console.log("=== GET BOARD ===");
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -34,17 +33,16 @@ export async function GET(
 
     const board = await db.board.findMany({
       where: {
-        OR: [
+        AND: [
           {
             BoardUser: {
               some: {
                 userId: user.id,
               },
             },
-            workspaceId: workspaceId,
           },
           {
-            isPublic: true,
+            workspaceId: workspaceId,
           },
         ],
         deletedAt: null,
@@ -56,8 +54,6 @@ export async function GET(
         _count: true,
       },
     });
-
-    console.log("\nboards: ", board, "\n");
 
     return new Response(
       JSON.stringify({

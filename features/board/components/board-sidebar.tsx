@@ -4,10 +4,12 @@ import { Skeleton } from "@/components/ui";
 import { Workspaces } from "@/features/workspace/core";
 import { useGetSingleWorkspace } from "@/features/workspace/hooks";
 import Link from "next/link";
-import { Settings } from "lucide-react";
+import { MoreHorizontal, Settings } from "lucide-react";
 import { useCreateBoard, useGetAllBoard } from "../hooks";
-import { ModalCreateBoard } from ".";
+import { BoardListCard, ModalCreateBoard } from ".";
 import { useState } from "react";
+import { Boards } from "../core";
+import { useToast } from "@/components/ui/use-toast";
 
 type BoardSidebarProps = {
   workspaceId: string;
@@ -25,17 +27,23 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
   });
 
   const [open, setOpen] = useState<boolean>(false);
+  const { toast } = useToast();
 
-  const initialValues: Workspaces = {
+  const initialValues: Boards = {
     name: "",
-    description: "",
+    isPublic: false,
+    workspaceId: workspaceId,
   };
 
-  const createWorkspace = useCreateBoard();
+  const createBoard = useCreateBoard();
 
   const handleSubmit = (values: Workspaces) => {
-    return createWorkspace.mutate(values, {
+    return createBoard.mutate(values, {
       onSuccess: () => {
+        toast({
+          title: "Success",
+          description: "Berhasil Membuat Board",
+        });
         closeModal();
         refetch();
       },
@@ -45,7 +53,7 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
   const closeModal = () => setOpen(false);
 
   return (
-    <div className="bg shadow-custom z-10 flex h-[calc(100vh-60px)] min-w-[250px] max-w-[250px] flex-col gap-3 bg-slate-50 py-2">
+    <div className="bg z-10 flex h-[calc(100vh-60px)] min-w-[250px] max-w-[250px] flex-col gap-3 bg-slate-50 py-2 shadow-custom">
       {fethingWorkspace ? (
         <div className="space-y-3 px-4 py-5">
           <Skeleton className="h-8 w-full" />
@@ -85,22 +93,30 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
           <Skeleton className="h-8 w-full" />
         </div>
       ) : (
-        boards?.map((board) => (
-          <div key={board.id}>
-            <p>{board.name}</p>
-          </div>
-        ))
+        boards?.map((board) =>
+          board.isPublic ? (
+            <BoardListCard key={board.id} board={board} />
+          ) : null,
+        )
       )}
 
       <div className="border-y px-4 py-2 font-medium text-slate-400">
         <p>Board Privat</p>
       </div>
 
-      <div className="space-y-3 px-4 py-5">
-        <Skeleton className="h-8 w-full" />
-        <Skeleton className="h-8 w-full" />
-        <Skeleton className="h-8 w-full" />
-      </div>
+      {fethingBoard ? (
+        <div className="space-y-3 px-4 py-5">
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-8 w-full" />
+        </div>
+      ) : (
+        boards?.map((board) =>
+          board.isPublic === false ? (
+            <BoardListCard key={board.id} board={board} />
+          ) : null,
+        )
+      )}
     </div>
   );
 };

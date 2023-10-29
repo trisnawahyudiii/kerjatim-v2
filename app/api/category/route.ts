@@ -1,5 +1,5 @@
-import { boardValidationSchema } from "@/features/board/utilities";
-import { RecordNotFoundError, db } from "@/lib";
+import { categoryValidationSchema } from "@/features/category/utilities";
+import { db } from "@/lib";
 import { authOptions } from "@/lib/auth";
 import { handleError } from "@/utilities/handle-error";
 import { getServerSession } from "next-auth";
@@ -12,22 +12,13 @@ export async function POST(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { user } = session;
-
     const body = await req.json();
-    const { name, isPublic, workspaceId } =
-      await boardValidationSchema.validate(body);
+    const { name, boardId } = await categoryValidationSchema.validate(body);
 
-    const board = await db.board.create({
+    const category = await db.boardCategory.create({
       data: {
         name,
-        isPublic,
-        workspaceId,
-        BoardUser: {
-          create: {
-            userId: user.id,
-          },
-        },
+        boardId,
       },
     });
 
@@ -35,9 +26,9 @@ export async function POST(req: Request, res: Response) {
       JSON.stringify({
         meta: {
           success: true,
-          message: "berhasil membuat data board",
+          message: "Berhasil membuat data category",
         },
-        data: board,
+        data: category,
       }),
       { status: 201 },
     );

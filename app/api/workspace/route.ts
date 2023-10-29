@@ -1,3 +1,4 @@
+import { workspaceValidationSchema } from "@/features/workspace/utilities";
 import { DuplicateRecordError, db } from "@/lib";
 import { authOptions } from "@/lib/auth";
 import { handleError } from "@/utilities/handle-error";
@@ -58,7 +59,7 @@ export async function GET(req: Request, res: Response) {
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }
 
@@ -71,7 +72,9 @@ export async function POST(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
     const { user } = session;
-    const { name, description } = await req.json();
+    const body = await req.json();
+    const { name, description } =
+      await workspaceValidationSchema.validate(body);
 
     const exist = await db.workspace.findFirst({
       where: { name },
@@ -112,6 +115,6 @@ export async function POST(req: Request, res: Response) {
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }
