@@ -13,7 +13,7 @@ export const useGetAllCategory = ({ params }: UseGetAllCategoryProps) => {
   const categoryService = new CategoryService();
 
   return useQuery<Categories[], ErrorResponse>({
-    queryKey: CATEOGRY_QUERY_KEY,
+    queryKey: CATEOGRY_QUERY_KEY.concat([params.boardId]),
     queryFn: () => categoryService.getAll(params),
   });
 };

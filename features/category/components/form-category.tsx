@@ -1,7 +1,7 @@
 "use client";
 
 import { ErrorMessage, useFormikContext } from "formik";
-import { Button, Input } from "@/components/ui";
+import { Input } from "@/components/ui";
 import { Categories } from "../core/categories";
 
 export const FormCategory = () => {

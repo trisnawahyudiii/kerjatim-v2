@@ -39,7 +39,7 @@ export const ModalCreateBoard = ({
         <Tooltip>
           {/* trigger modal */}
           <DialogTrigger asChild>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 className="relative flex items-center rounded-none px-4 py-2 text-base after:absolute after:bottom-0 after:left-0 after:top-0 after:w-0 after:bg-foreground hover:bg-transparent hover:after:w-1 hover:after:content-['']"
