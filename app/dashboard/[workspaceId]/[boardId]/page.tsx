@@ -59,6 +59,10 @@ export default function BoardPage() {
     });
   };
 
+  const refetchCategory = () => {
+    refetch();
+  };
+
   return (
     <ScrollArea>
       <div className="flex gap-3 p-10">
@@ -67,6 +71,7 @@ export default function BoardPage() {
             key={category.id}
             category={category}
             handleDelete={handleDeleteCategory}
+            refetch={refetchCategory}
           />
         ))}
 

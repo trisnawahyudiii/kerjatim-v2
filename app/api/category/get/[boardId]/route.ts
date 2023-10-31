@@ -21,7 +21,38 @@ export async function GET(
       select: {
         id: true,
         name: true,
-        Task: true,
+        Task: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            priority: true,
+            progress: true,
+            startedAt: true,
+            endedAt: true,
+            Checklist: {
+              select: {
+                id: true,
+                label: true,
+                isChecked: true,
+              },
+            },
+            TaskAssignee: {
+              select: {
+                id: true,
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    image: true,
+                  },
+                },
+              },
+            },
+            TaskComment: true,
+          },
+        },
       },
     });
 

@@ -1,4 +1,4 @@
-import { Checklist, Task, TaskAssignee, TaskComment } from "@prisma/client";
+import { Checklist, Task, TaskComment, User } from "@prisma/client";
 
 export type Tasks = Partial<
   Pick<
@@ -15,5 +15,8 @@ export type Tasks = Partial<
   id?: string;
   checkList?: Partial<Checklist>[];
   taskComment?: Partial<TaskComment>[];
-  taskAssignee?: Pick<TaskAssignee, "userId">[];
+  taskAssignee?: {
+    id?: string;
+    user: Pick<User, "id" | "name" | "email" | "image">;
+  }[];
 };
