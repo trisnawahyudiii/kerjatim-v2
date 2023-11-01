@@ -1,11 +1,11 @@
 "use client";
 
+import { UserProfileNav } from "@/components/user-profile-nav";
 import { Container } from "@/components/ui";
 import { navigationConfig } from "config/navigations";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserProfileNav } from "@/components";
 
 export const Navbar = () => {
   const { data: session } = useSession();

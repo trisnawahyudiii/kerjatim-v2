@@ -1,7 +1,7 @@
 import { cn } from "@/lib";
 import Link from "next/link";
 import Image from "next/image";
-import { AuthImageSlider } from "@/components";
+import { AuthImageSlider } from "components/auth-image-slider";
 import { DashboardNavbar } from ".";
 
 interface AuthLayoutProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
@@ -15,9 +15,9 @@ export const AuthPageLayout = ({ children, className }: AuthLayoutProps) => {
         <DashboardNavbar />
       </div>
       {/* swiper */}
-      <div className="hidden md:flex bg-pr-blue-1 flex-col">
+      <div className="hidden flex-col  bg-gradient-to-b from-foreground to-pr-blue-1 md:flex">
         <Link href="/">
-          <div className="w-fit h-fit flex items-center justify-center bg-white px-[64px] rounded-br-[64px] py-3">
+          <div className="flex h-fit w-fit items-center justify-center rounded-br-[64px] bg-white px-[64px] py-3">
             <Image
               src="/logo-kerjatim.png"
               alt="logo kerjatim"
@@ -27,8 +27,8 @@ export const AuthPageLayout = ({ children, className }: AuthLayoutProps) => {
           </div>
         </Link>
 
-        <div className="flex flex-col  my-12 mx-16 h-full text-white text-center">
-          <h1 className="text-4xl font-semibold my-3">Selamat Datang!</h1>
+        <div className="mx-16 my-12  flex h-full flex-col text-center text-white">
+          <h1 className="my-3 text-4xl font-semibold">Selamat Datang!</h1>
           <AuthImageSlider />
         </div>
       </div>

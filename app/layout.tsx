@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/config/site";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "styles/globals.css";
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
-// auth
-import { AuthProvider } from "features/auth/providers";
+// providers
+import { Plus_Jakarta_Sans } from "next/font/google";
 import React from "react";
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import Providers from "./providers";
 
+import { siteConfig } from "@/config/site";
+
+import { AuthProvider } from "features/auth/providers";
+import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
+
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -38,6 +36,7 @@ export default function RootLayout({
         <AuthProvider>
           <Providers>{children}</Providers>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

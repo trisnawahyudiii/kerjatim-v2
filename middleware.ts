@@ -24,7 +24,7 @@ export default withAuth(
       }
 
       return NextResponse.redirect(
-        new URL(`/authenticate?from=${encodeURIComponent(from)}`, req.url)
+        new URL(`/authenticate?from=${encodeURIComponent(from)}`, req.url),
       );
     }
   },
@@ -34,9 +34,9 @@ export default withAuth(
         return true;
       },
     },
-  }
+  },
 );
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/authenticate"],
+  matcher: ["/dashboard/:path*", "/authenticate", "/onboarding/:path*"],
 };

@@ -2,16 +2,21 @@
 
 import { ErrorMessage, useFormikContext } from "formik";
 import { Workspace } from "@prisma/client";
-import { Input } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
+import Image from "next/image";
+import { cn } from "@/lib";
 
-export const FormWorkspace = () => {
+interface FormWorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const FormWorkspace: React.FC<FormWorkspaceProps> = ({
+  className,
+  ...props
+}) => {
   const { values, errors, handleChange, handleSubmit } =
     useFormikContext<Partial<Workspace>>();
 
-  console.log(errors);
-  console.log(values);
   return (
-    <div className="flex flex-col gap-3">
+    <div className={cn("flex w-full flex-col gap-3", className)} {...props}>
       <label htmlFor="name" className="flex flex-col">
         Nama Workspace*
         <Input
@@ -41,6 +46,7 @@ export const FormWorkspace = () => {
           onChange={handleChange}
         />
       </label>
+      <Button type="submit">Simpan</Button>
     </div>
   );
 };

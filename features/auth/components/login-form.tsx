@@ -2,7 +2,7 @@ import { Button, Checkbox, Input } from "@/components/ui";
 import { ErrorMessage, Field, useFormikContext } from "formik";
 import { AuthPayload } from "../core";
 import Link from "next/link";
-import { LoadingSpiner } from "@/components";
+import { LoadingSpiner } from "@/components/loading-spiner";
 
 type LoginFormProps = {
   isLoading: boolean;
@@ -39,14 +39,14 @@ export const LoginForm = ({ isLoading }: LoginFormProps) => {
           Saya setuju dengan{" "}
           <Link
             href="/site-policy/kerjatim-term"
-            className="text-pr-blue-2 font-semibold"
+            className="font-semibold text-pr-blue-2"
           >
             Syarat & Ketentuan
           </Link>{" "}
           dan
           <Link
             href="/site-policy/kerjatim-privacy-statement"
-            className="text-pr-blue-2 font-semibold"
+            className="font-semibold text-pr-blue-2"
           >
             {" "}
             Kebijakan Privasi

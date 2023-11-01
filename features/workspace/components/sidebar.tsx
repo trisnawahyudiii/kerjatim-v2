@@ -1,47 +1,50 @@
 "use client";
 
-import { LoadingSpiner } from "@/components";
+import { LoadingSpiner } from "@/components/loading-spiner";
+import { ModeToggle } from "@/components/mode-toogle";
 import {
   Avatar,
   AvatarFallback,
   Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui";
-import { FormWorkspace } from "@/features/workspace/components";
+import { useToast } from "@/components/ui/use-toast";
+import { CreateWorkspaceModal } from "@/features/workspace/components";
 import { Workspaces } from "@/features/workspace/core";
-import {
-  useCreateWorkspace,
-  useGetAllWorkspace,
-} from "@/features/workspace/hooks";
-import { workspaceValidationSchema } from "@/features/workspace/utilities";
-import { Formik, Form } from "formik";
+import { useCreateWorkspace } from "@/features/workspace/hooks";
+import { cn } from "@/lib";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useState } from "react";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineHome, AiOutlinePlus } from "react-icons/ai";
 
-export const Sidebar = () => {
+type SidebarProps = {
+  data?: Workspaces[];
+  isFetching: boolean;
+  refetch: () => void;
+};
+
+export const Sidebar = ({ data, isFetching, refetch }: SidebarProps) => {
   const [open, setOpen] = useState<boolean>(false);
+  const { workspaceId } = useParams();
+  const { toast } = useToast();
+
   const initialValues: Workspaces = {
     name: "",
     description: "",
   };
-
-  const { data, isFetching, refetch } = useGetAllWorkspace();
 
   const createWorkspace = useCreateWorkspace();
 
   const handleSubmit = (values: Workspaces) => {
     return createWorkspace.mutate(values, {
       onSuccess: () => {
+        toast({
+          title: "Success",
+          description: "Berhasil Membuat Workspace",
+        });
         closeModal();
         refetch();
       },
@@ -50,59 +53,58 @@ export const Sidebar = () => {
 
   const closeModal = () => setOpen(false);
 
-  return (
-    <div className="flex h-[calc(100vh-60px)] w-[100px] flex-col items-center gap-3 py-2 shadow">
-      <div>
-        <Dialog open={open} onOpenChange={setOpen}>
-          <Button asChild={true} variant="outline">
-            <DialogTrigger>
-              <AiOutlinePlus />
-            </DialogTrigger>
-          </Button>
-          <DialogOverlay />
-          <DialogPortal>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create Workspace</DialogTitle>
-              </DialogHeader>
+  const getAvatarClassname = (workspace: Workspaces) =>
+    workspaceId === workspace.id
+      ? "bg-foreground text-white hover:bg-foreground/90"
+      : "bg-slate-200";
 
-              <Formik
-                initialValues={initialValues}
-                validationSchema={workspaceValidationSchema}
-                onSubmit={handleSubmit}
-              >
-                <Form>
-                  <FormWorkspace />
-                  <div className="mt-3 text-end">
-                    <Button type="submit">Submit</Button>
-                  </div>
-                </Form>
-              </Formik>
-            </DialogContent>
-          </DialogPortal>
-        </Dialog>
-      </div>
-      <div className="flex h-[calc(100vh-60px)] w-full flex-col items-center border p-2">
+  return (
+    <div className="z-20 flex h-[calc(100vh-60px)] min-w-[100px] max-w-[100px] flex-col items-center gap-3 bg-slate-50 py-2 shadow-custom">
+      <div className="flex h-[calc(100vh-60px)] w-full flex-col items-center p-2">
+        <Link href="/dashboard" className="my-3">
+          <Button>
+            <AiOutlineHome />
+          </Button>
+        </Link>
+
         {isFetching ? (
           <LoadingSpiner />
         ) : (
           <div className="flex flex-col gap-3">
-            {data?.map((workspace) => (
-              <Tooltip key={workspace.id}>
-                <TooltipTrigger>
-                  <Avatar>
-                    <AvatarFallback>
-                      {workspace.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>{workspace.name}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
+            {data &&
+              data?.map((workspace) => (
+                <Tooltip key={workspace.id}>
+                  <TooltipTrigger>
+                    <Link href={`/dashboard/${workspace.id}`}>
+                      <Avatar>
+                        <AvatarFallback
+                          className={cn(
+                            "hover:bg-foreground/20",
+                            getAvatarClassname(workspace),
+                          )}
+                        >
+                          {workspace.name?.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    <p>{workspace.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
           </div>
         )}
+      </div>
+
+      {/* create workspace */}
+      <div>
+        <CreateWorkspaceModal
+          open={open}
+          setOpen={setOpen}
+          initialValue={initialValues}
+          onSubmit={handleSubmit}
+        />
       </div>
     </div>
   );
