@@ -8,6 +8,7 @@ import { AuthPayload } from "@/features/auth/core";
 import Image from "next/image";
 import { LoginForm, VerifyRequestDialog } from "@/features/auth/components";
 import { useState, useEffect } from "react";
+import { redirect } from "next/dist/server/api-utils";
 
 type AuthenticatePageProps = {
   searchParams?: Record<"verify-request", string>;
@@ -71,7 +72,9 @@ export default function Authenticate({ searchParams }: AuthenticatePageProps) {
         <Button
           variant="outline"
           size="lg"
-          onClick={() => signIn("google")}
+          onClick={() =>
+            signIn("google", { redirect: true, callbackUrl: "/dashboard" })
+          }
           className="flex items-center justify-center gap-3 text-base"
         >
           <FcGoogle /> <p>Google</p>
