@@ -8,7 +8,7 @@ import {
 
 export type TaskPayload = {
   title: string;
-  description?: string;
+  description?: string | null;
   categoryId: string;
   priority?: TaskPriority;
   progress?: TaskProgress;
@@ -16,5 +16,5 @@ export type TaskPayload = {
   endedAt?: Date | null;
   cheklist?: Pick<Checklist, "label" | "isChecked">[];
   taskComment?: Pick<TaskComment, "text">[];
-  taskAssignee?: Pick<TaskAssignee, "userId">[];
+  taskAssignee?: { userId: string | undefined }[];
 };
