@@ -20,7 +20,18 @@ export const DashboardNavbar = () => {
         </div>
       </Link>
 
-      <UserProfileNav className="me-[60px]" />
+      <div className="mr-12">
+        {session?.user ? (
+          <UserProfileNav />
+        ) : (
+          <Link
+            href="/authenticate"
+            className="duration:300 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-slate-200 transition  ease-in-out hover:bg-transparent hover:text-blue-400 hover:ring-1 hover:ring-blue-400"
+          >
+            SignIn
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };

@@ -47,7 +47,11 @@ export const UserProfileNav: React.FC<UserProfileNavProps> = ({
           </DropdownMenuItem>
           <DropdownMenuItem className="flex gap-2 text-red-600 focus:text-red-600">
             <BiPowerOff />
-            <button onClick={() => signOut()}>SignOut</button>
+            <button
+              onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+            >
+              SignOut
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,9 +1,9 @@
-import { db } from "@/lib";
+import { workspaceValidationSchema } from "@/features/workspace/utilities";
+import { DuplicateRecordError, db } from "@/lib";
 import { authOptions } from "@/lib/auth";
 import { handleError } from "@/utilities/handle-error";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
 import { Prisma } from "@prisma/client";
+import { getServerSession } from "next-auth";
 //list
 export async function GET(req: Request, res: Response) {
   try {
@@ -17,9 +17,16 @@ export async function GET(req: Request, res: Response) {
 
     const workspaces = await db.workspace.findMany({
       where: {
-        userId: user.id,
+        WorkspaceMember: {
+          some: {
+            userId: user.id,
+          },
+        },
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
         User: {
           select: {
             id: true,
@@ -55,7 +62,7 @@ export async function GET(req: Request, res: Response) {
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }
 
@@ -68,9 +75,17 @@ export async function POST(req: Request, res: Response) {
       return new Response("Unauthorized", { status: 403 });
     }
     const { user } = session;
-    const { name, description } = await req.json();
+    const body = await req.json();
+    const { name, description } =
+      await workspaceValidationSchema.validate(body);
 
-    console.log("create workspace: ", name, description);
+    const exist = await db.workspace.findFirst({
+      where: { name },
+    });
+
+    if (exist) {
+      throw new DuplicateRecordError(name);
+    }
 
     let workspaceInput: Prisma.WorkspaceCreateInput = {
       name,
@@ -103,6 +118,6 @@ export async function POST(req: Request, res: Response) {
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }

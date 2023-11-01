@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 
 import { AuthProvider } from "features/auth/providers";
 import Providers from "./providers";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -34,12 +34,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={plusJakartaSans.className}>
         <AuthProvider>
-          <Providers>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              {children}
-            </ThemeProvider>
-          </Providers>
+          <Providers>{children}</Providers>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

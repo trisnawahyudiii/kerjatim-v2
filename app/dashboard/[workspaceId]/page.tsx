@@ -8,8 +8,8 @@ type PageProps = {
 
 export default function Page({ params }: PageProps) {
   return (
-    <>
-      <p>Workspace Id : {params.workspaceId}</p>
-    </>
+    <div className="h-with-navbar flex w-full items-center justify-center">
+      <h1>Pilih Board</h1>
+    </div>
   );
 }

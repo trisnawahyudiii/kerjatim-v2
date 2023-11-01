@@ -3,10 +3,22 @@
 import Lottie from "lottie-react";
 import Loading from "assets/loading.json";
 import Image from "next/image";
+import { cn } from "@/lib";
 
-export const LoadingComponent = () => {
+interface LoadingComponentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const LoadingComponent: React.FC<LoadingComponentProps> = ({
+  className,
+  ...props
+}) => {
   return (
-    <div className="relative flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center gap-[32px]">
+    <div
+      className={cn(
+        "relative flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center gap-[32px]",
+        className,
+      )}
+      {...props}
+    >
       <Image
         src="/logo-kerjatim.png"
         width={212}

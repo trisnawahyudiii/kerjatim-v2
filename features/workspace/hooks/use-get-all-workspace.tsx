@@ -1,6 +1,5 @@
 import { ErrorResponse, SuccessResponse } from "@/types";
-import { Workspace } from "@prisma/client";
-import { QueryKey, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { WorkspaceService } from "../services/workspace-service";
 import { Workspaces } from "../core";
