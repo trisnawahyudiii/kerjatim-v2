@@ -1,7 +1,6 @@
 "use client";
 
 import { DashboardNavbar } from "@/layouts";
-import { Sidebar } from "@/features/workspace/components";
 import { useGetAllWorkspace } from "@/features/workspace/hooks";
 
 interface OnboardingLayoutProps {
