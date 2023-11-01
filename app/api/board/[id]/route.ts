@@ -85,7 +85,7 @@ export async function GET(
   }
 }
 // update
-export async function UPDATE(
+export async function PUT(
   req: Request,
   { params }: { params: { id: string } },
   res: Response,
