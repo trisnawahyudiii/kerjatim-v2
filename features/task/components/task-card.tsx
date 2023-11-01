@@ -6,7 +6,6 @@ import { Divider } from "@/components/ui";
 import { TaskAssigneeAvatarGroup, TaskAttribute } from ".";
 import { AlignJustify, CheckSquare, MessageSquare } from "lucide-react";
 import { checklistCount } from "../utilities";
-import { useSession } from "next-auth/react";
 
 interface TaskCardProps extends React.HTMLAttributes<HTMLDivElement> {
   task: Tasks;
@@ -17,8 +16,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   className,
   ...props
 }) => {
-  const { data: session } = useSession();
-
   return (
     <div
       className={cn("flex w-full flex-col rounded-md bg-slate-100 ", className)}

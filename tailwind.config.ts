@@ -83,7 +83,7 @@ module.exports = {
           "0 0 10px -2px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);",
       },
       spacing: {
-        "with-navbar": "calc(100vh-64px)",
+        "with-navbar": "calc(100vh - 64px)",
       },
     },
   },

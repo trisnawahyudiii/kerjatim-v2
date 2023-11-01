@@ -57,7 +57,7 @@ export const ModalCreateBoard = ({
         <DialogContent className="grid h-fit w-1/2 max-w-xl bg-background p-0 md:grid-cols-2 lg:max-w-4xl">
           <div className="col-span-1 flex flex-col items-center justify-center gap-3 p-5">
             <DialogTitle className="text-center text-xl font-bold">
-              Buat Board
+              Anggota Board
             </DialogTitle>
 
             <Formik

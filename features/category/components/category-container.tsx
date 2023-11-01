@@ -72,7 +72,7 @@ export const CategoryContainer: React.FC<categoryContainerProps> = ({
       <div className={cn("flex  items-center justify-between ", className)}>
         <h2 className="font-semibold">{category.name}</h2>
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
             <Button variant="ghost">
               <MoreHorizontal />
             </Button>

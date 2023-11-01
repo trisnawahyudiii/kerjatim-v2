@@ -51,7 +51,7 @@ export const FormTask = () => {
         <Label className="flex flex-col gap-1">
           Assignee
           <Select
-            name="priority"
+            name="taskAssignee"
             value={String(values.priority)}
             onValueChange={(value: TaskPriority) =>
               setValues({ ...values, priority: value })

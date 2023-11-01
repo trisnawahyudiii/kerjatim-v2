@@ -23,7 +23,10 @@ export async function GET(req: Request, res: Response) {
           },
         },
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
         User: {
           select: {
             id: true,

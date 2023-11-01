@@ -1,7 +1,9 @@
 import { HttpClientService } from "@/services";
 import { responseMapper } from "@/utilities/response-mapper";
-import { Workspaces } from "../core";
+import { WorkspaceUser, Workspaces } from "../core";
 import { workspacePayloadMapper } from "../utilities";
+import { JoinWorkspace } from "../components";
+import { JoinRespose } from "../hooks";
 
 export class WorkspaceService {
   async getAll(params?: any): Promise<Workspaces[]> {
@@ -16,10 +18,28 @@ export class WorkspaceService {
     );
   }
 
+  async getByCode(code: string): Promise<Workspaces> {
+    return await HttpClientService.get("/workspace/get/" + code).then((res) =>
+      responseMapper(res),
+    );
+  }
+
+  async getMember(id: string): Promise<WorkspaceUser> {
+    return await HttpClientService.get("/workspace-user/get/" + id).then(
+      (res) => responseMapper(res),
+    );
+  }
+
   async create(payload: Workspaces) {
     return await HttpClientService.post(
       "/workspace",
       workspacePayloadMapper(payload),
+    ).then((res) => responseMapper(res));
+  }
+
+  async join(payload: JoinWorkspace): Promise<JoinRespose> {
+    return await HttpClientService.post(
+      "/workspace/join/" + payload.workspaceCode,
     ).then((res) => responseMapper(res));
   }
 

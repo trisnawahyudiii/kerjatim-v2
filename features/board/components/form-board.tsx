@@ -11,15 +11,20 @@ import {
   SelectGroup,
   SelectItem,
 } from "@/components/ui/select";
-
 import { Lock, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib";
 
-export const FormBoard = () => {
+interface FormBoardProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const FormBoard: React.FC<FormBoardProps> = ({
+  className,
+  ...props
+}) => {
   const { values, errors, handleChange, setValues } =
     useFormikContext<Partial<Boards>>();
 
   return (
-    <div className="flex w-full flex-col gap-3">
+    <div className={cn("flex w-full flex-col gap-3", className)} {...props}>
       <label htmlFor="name" className="flex flex-col">
         Nama Board*
         <Input
