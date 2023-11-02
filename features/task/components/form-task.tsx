@@ -25,6 +25,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { MemberSelect, SelectOptions } from "@/components/member-select";
 
 export const FormTask = () => {
   const { values, errors, handleChange, setValues } = useFormikContext<Tasks>();
@@ -50,36 +51,10 @@ export const FormTask = () => {
         {/* task assignee */}
         <Label className="flex flex-col gap-1">
           Assignee
-          <Select
-            name="taskAssignee"
-            value={String(values.priority)}
-            onValueChange={(value: TaskPriority) =>
-              setValues({ ...values, priority: value })
-            }
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Pilih priority" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value={TaskPriority.NOT_SET}>
-                  <span className="flex items-center gap-3">Not set</span>
-                </SelectItem>
-                <SelectItem value={TaskPriority.LOW}>
-                  <span className="flex items-center gap-3">Low</span>
-                </SelectItem>
-                <SelectItem value={TaskPriority.MEDIUM}>
-                  <span className="flex items-center gap-3">Medium</span>
-                </SelectItem>
-                <SelectItem value={TaskPriority.HIGH}>
-                  <span className="flex items-center gap-3">High</span>
-                </SelectItem>
-                <SelectItem value={TaskPriority.URGENT}>
-                  <span className="flex items-center gap-3">Urgent</span>
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          {/* <MemberSelect 
+            value={values.taskAssignee}
+
+          /> */}
         </Label>
 
         {/* task priority, progress, endedAt, startedAt */}

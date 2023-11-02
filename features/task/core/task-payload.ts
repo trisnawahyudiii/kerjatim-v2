@@ -1,7 +1,6 @@
 import {
   TaskPriority,
   TaskProgress,
-  TaskAssignee,
   Checklist,
   TaskComment,
 } from "@prisma/client";

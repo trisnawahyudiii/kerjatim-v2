@@ -25,9 +25,6 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async session({ token, session }) {
-      console.log("session callback || session: ", session);
-      console.log("session callback || token: ", token);
-
       if (token) {
         session.user = {
           id: token.id,
@@ -41,9 +38,6 @@ export const authOptions: AuthOptions = {
     },
 
     async jwt({ token, user }) {
-      console.log("token callback || user: ", user);
-      console.log("token callback || jwt token: ", token);
-
       const dbUser = await db.user.findFirst({
         where: {
           email: token.email!,

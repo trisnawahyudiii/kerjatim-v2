@@ -38,8 +38,6 @@ export async function GET(
       },
     });
 
-    console.log("members", members);
-
     return new Response(
       JSON.stringify({
         meta: {

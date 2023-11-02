@@ -26,8 +26,6 @@ export async function DELETE(
       },
     });
 
-    console.log("\n\ndelete: ", category, "\n\n");
-
     return new Response(
       JSON.stringify({
         meta: {

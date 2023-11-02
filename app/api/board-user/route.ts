@@ -35,13 +35,9 @@ export async function POST(
       }),
     );
 
-    console.log("createPayload", createPayload);
-
     const memberResult = await db.boardUser.createMany({
       data: createPayload,
     });
-
-    console.log(memberResult);
 
     return new Response(
       JSON.stringify({
