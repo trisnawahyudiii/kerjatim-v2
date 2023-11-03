@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   async function middleware(req) {
-    const secret = process.env.NEXTAUTH_SECRET;
-
-    const token = await getToken({ req, secret });
+    const token = await getToken({ req });
 
     const isAuth = !!token;
     const isAuthPage = req.nextUrl.pathname.startsWith("/authenticate");
@@ -44,5 +42,6 @@ export const config = {
     "/authenticate",
     "/onboarding",
     "/onboarding/:path*",
+    "/authenticate/error",
   ],
 };

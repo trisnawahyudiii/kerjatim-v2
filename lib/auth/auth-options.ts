@@ -66,5 +66,6 @@ export const authOptions: AuthOptions = {
     signIn: "/authenticate",
     verifyRequest: "/authenticate?verify-request=true",
     newUser: "/onboarding",
+    error: "/authenticate/error",
   },
 };
