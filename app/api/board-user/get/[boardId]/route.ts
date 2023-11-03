@@ -27,6 +27,18 @@ export async function GET(
       where: {
         boardId: target.id,
       },
+      select: {
+        id: true,
+        isAdmin: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
+      },
     });
 
     return new Response(

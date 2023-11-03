@@ -73,7 +73,6 @@ export default function OnboardingPage() {
   const handleCreateWorkspace = (values: Workspaces) => {
     return createWorkspace.mutate(values, {
       onSuccess: (res: any) => {
-        console.log("response: ", res);
         toast({
           title: "Success",
           description: "Berhasil Membuat Workspace",
@@ -88,7 +87,6 @@ export default function OnboardingPage() {
   const handleJoinWorkspace = (values: JoinWorkspace) => {
     return joinWorkspace.mutate(values, {
       onSuccess: (res: any) => {
-        console.log("response", res);
         toast({
           title: "Success",
           description: "Berhasil bergabung dengan workspace",
@@ -96,7 +94,6 @@ export default function OnboardingPage() {
         router.push("/dashboard/" + res.workspaceId);
       },
       onError: (err) => {
-        console.log("error", err);
         toast({
           title: "Error",
           description: "Gagal dengan workspace",
@@ -107,7 +104,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="max-w-screen mx-12 grid h-fit min-h-[500px] w-screen gap-0 overflow-hidden  rounded-xl bg-background p-0 shadow-custom md:grid-cols-2  lg:max-h-[500px] lg:w-2/3 lg:max-w-4xl">
+    <div className="max-w-screen mx-12 grid h-fit min-h-[500px] w-screen gap-0 overflow-hidden rounded-xl bg-background p-0 shadow-custom md:grid-cols-2  lg:max-h-[500px] lg:w-2/3 lg:max-w-4xl">
       <div
         className={cn(
           "col-span-1 flex flex-col items-center justify-between gap-3 bg-zinc-200/80 p-8 text-center",
@@ -178,7 +175,7 @@ export default function OnboardingPage() {
         </div>
 
         {modalConfig.type === "GABUNG_WORKSPACE" ? (
-          <div className="flex h-full w-full justify-between text-left">
+          <div className="flex h-full w-full items-center justify-between text-left">
             {workspaceCode ? (
               <>
                 {isFetching ? (

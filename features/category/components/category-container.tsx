@@ -18,23 +18,25 @@ import { useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { ModalCrateTask, TaskCard } from "@/features/task/components";
 import { Tasks } from "@/features/task/core";
-import { useCreateTask, useGetAllTask } from "@/features/task/hooks";
+import { useCreateTask } from "@/features/task/hooks";
 import { useToast } from "@/components/ui/use-toast";
 
 interface categoryContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  workspaceId: string;
   category: Categories;
   refetch: () => void;
   handleDelete: (values: Categories) => void;
 }
 
 export const CategoryContainer: React.FC<categoryContainerProps> = ({
-  className,
+  workspaceId,
   category,
   refetch,
   handleDelete,
+  className,
   ...props
 }) => {
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false); ///for delete
   const [openCreateTask, setOpenCreateTask] = useState<boolean>(false);
   const { toast } = useToast();
 

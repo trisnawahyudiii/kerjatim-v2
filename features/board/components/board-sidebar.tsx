@@ -53,7 +53,7 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
   const closeModal = () => setOpen(false);
 
   return (
-    <div className="bg z-10 flex h-[calc(100vh-60px)] min-w-[250px] max-w-[250px] flex-col gap-3 bg-slate-50 py-2 shadow-custom">
+    <div className="bg z-10 flex h-[calc(100vh-60px)] min-w-[250px] max-w-[250px] flex-col bg-slate-50 py-2 shadow-custom">
       {fethingWorkspace ? (
         <div className="space-y-3 px-4 py-5">
           <Skeleton className="h-8 w-full" />
@@ -82,8 +82,8 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
         </div>
       )}
 
-      <div className="border-y px-4 py-2 font-medium text-slate-400">
-        <p>Board Pulic</p>
+      <div className="my-3 border-y px-4 py-2 font-medium text-slate-400">
+        <p>Board Public</p>
       </div>
 
       {fethingBoard ? (
@@ -100,7 +100,7 @@ export const BoardSidebar = ({ workspaceId }: BoardSidebarProps) => {
         )
       )}
 
-      <div className="border-y px-4 py-2 font-medium text-slate-400">
+      <div className="my-3 border-y px-4 py-2 font-medium text-slate-400">
         <p>Board Privat</p>
       </div>
 

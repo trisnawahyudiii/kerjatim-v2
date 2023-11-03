@@ -24,7 +24,7 @@ export class WorkspaceService {
     );
   }
 
-  async getMember(id: string): Promise<WorkspaceUser> {
+  async getMember(id: string): Promise<WorkspaceUser[]> {
     return await HttpClientService.get("/workspace-user/get/" + id).then(
       (res) => responseMapper(res),
     );

@@ -27,6 +27,7 @@ export async function GET(
         workspaceId: target.id,
       },
       select: {
+        id: true,
         user: {
           select: {
             id: true,
@@ -37,8 +38,6 @@ export async function GET(
         },
       },
     });
-
-    console.log("members", members);
 
     return new Response(
       JSON.stringify({

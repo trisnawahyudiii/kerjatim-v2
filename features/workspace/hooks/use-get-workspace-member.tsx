@@ -11,7 +11,7 @@ export const useGetWorkspaceMember = (
 ) => {
   const workspaceService = new WorkspaceService();
 
-  return useQuery<WorkspaceUser, ErrorResponse>({
+  return useQuery<WorkspaceUser[], ErrorResponse>({
     queryFn: () => workspaceService.getMember(workspaceId),
     queryKey: WORKSPACE_QUERY_KEY.concat(["member"]).concat([workspaceId]),
     enabled: enabled,

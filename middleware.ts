@@ -6,10 +6,7 @@ export default withAuth(
   async function middleware(req) {
     const secret = process.env.NEXTAUTH_SECRET;
 
-    console.log("secret: ", secret);
     const token = await getToken({ req, secret });
-
-    console.log("token", token);
 
     const isAuth = !!token;
     const isAuthPage = req.nextUrl.pathname.startsWith("/authenticate");

@@ -49,7 +49,7 @@ export const AuthImageSlider = () => {
       // Clear the interval when the component unmounts
       clearInterval(slideInterval);
     };
-  }, [currentIndex]);
+  }, [currentIndex, nextSlide]);
 
   return (
     <div className="flex h-full flex-col items-center justify-between gap-8 overflow-hidden">

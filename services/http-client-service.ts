@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -13,3 +13,11 @@ HttpClientService.interceptors.request.use((config) => {
 
   return config;
 });
+
+// Response config
+HttpClientService.interceptors.response.use(
+  (res) => res,
+  async (err: AxiosError) => {
+    return Promise.reject<AxiosError>(err);
+  },
+);
