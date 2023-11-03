@@ -36,7 +36,6 @@ export default function OnboardingPage() {
   const handleJoinWorkspace = (values: JoinWorkspace) => {
     return joinWorkspace.mutate(values, {
       onSuccess: (res: any) => {
-        console.log("response", res);
         toast({
           title: "Success",
           description: "Berhasil bergabung dengan workspace",
@@ -44,7 +43,6 @@ export default function OnboardingPage() {
         router.push("/dashboard/" + res.workspaceId);
       },
       onError: (err) => {
-        console.log("error", err);
         toast({
           title: "Error",
           description: "Gagal dengan workspace",

@@ -16,7 +16,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function BoardPage() {
-  const { boardId } = useParams();
+  const { workspaceId, boardId } = useParams();
   const { toast } = useToast();
   const { data, isFetching, isError, refetch } = useGetAllCategory({
     params: { boardId: String(boardId) },
@@ -47,7 +47,6 @@ export default function BoardPage() {
 
   const deleteCategory = useDeleteCategory();
   const handleDeleteCategory = (values: Categories) => {
-    console.log("delete: ", values);
     deleteCategory.mutate(values.id!, {
       onSuccess: () => {
         toast({
@@ -68,6 +67,7 @@ export default function BoardPage() {
       <div className="flex gap-3 p-10">
         {data?.map((category) => (
           <CategoryContainer
+            workspaceId={String(workspaceId)}
             key={category.id}
             category={category}
             handleDelete={handleDeleteCategory}

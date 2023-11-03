@@ -1,4 +1,5 @@
-import { Checklist, Task, TaskComment, User } from "@prisma/client";
+import { User } from "@/features/workspace/core";
+import { Checklist, Task, TaskComment } from "@prisma/client";
 
 export type Tasks = Partial<
   Pick<
@@ -16,7 +17,6 @@ export type Tasks = Partial<
   checkList?: Partial<Checklist>[];
   taskComment?: Partial<TaskComment>[];
   taskAssignee?: {
-    id?: string;
-    user: Pick<User, "id" | "name" | "email" | "image">;
+    user: User;
   }[];
 };

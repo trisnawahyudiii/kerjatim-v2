@@ -7,7 +7,6 @@ import { getServerSession } from "next-auth";
 
 export async function POST(req: Request, res: Response) {
   try {
-    console.log("\n CREATE TASK \n");
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -26,9 +25,6 @@ export async function POST(req: Request, res: Response) {
       taskAssignee,
       checkList,
     } = await taskValidationSchema.validate(body);
-
-    console.log(`\n TITLE: ${title}  \n`);
-    console.log(`\n description: ${description}  \n`);
 
     const createPayload: Prisma.TaskCreateInput = {
       title,
@@ -76,8 +72,6 @@ export async function POST(req: Request, res: Response) {
       data: createPayload,
     });
 
-    console.log("result: ", task);
-
     return new Response(
       JSON.stringify({
         meta: {
@@ -89,7 +83,6 @@ export async function POST(req: Request, res: Response) {
       { status: 201 },
     );
   } catch (error) {
-    console.log("error: ", error);
     return handleError(error, res);
   }
 }

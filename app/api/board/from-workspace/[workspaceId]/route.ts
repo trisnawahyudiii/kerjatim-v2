@@ -33,17 +33,22 @@ export async function GET(
 
     const board = await db.board.findMany({
       where: {
-        AND: [
+        OR: [
           {
-            BoardUser: {
-              some: {
-                userId: user.id,
+            AND: [
+              {
+                BoardUser: {
+                  some: {
+                    userId: user.id,
+                  },
+                },
               },
-            },
+              {
+                workspaceId: workspaceId,
+              },
+            ],
           },
-          {
-            workspaceId: workspaceId,
-          },
+          { isPublic: true },
         ],
         deletedAt: null,
       },

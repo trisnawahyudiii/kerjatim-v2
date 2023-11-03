@@ -1,4 +1,3 @@
-import { NextApiResponse } from "next";
 import { ValidationError } from "yup";
 import {
   RecordNotFoundError,
