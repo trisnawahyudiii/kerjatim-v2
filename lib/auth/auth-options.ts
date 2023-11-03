@@ -40,14 +40,17 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       const dbUser = await db.user.findFirst({
         where: {
-          email: token.email!,
+          email: token.email,
         },
       });
+
+      console.log("jwt callback || dbUser: ", dbUser);
 
       if (!dbUser) {
         if (user) {
           token.id = user?.id;
         }
+        console.log("user not found, returning token : ", token);
         return token;
       }
 
