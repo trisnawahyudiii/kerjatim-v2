@@ -35,19 +35,6 @@ export async function GET(req: Request, res: Response) {
             email: true,
           },
         },
-        WorkspaceMember: {
-          select: {
-            isAdmin: true,
-            user: {
-              select: {
-                id: true,
-                name: true,
-                image: true,
-                email: true,
-              },
-            },
-          },
-        },
       },
     });
 

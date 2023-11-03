@@ -27,6 +27,7 @@ export async function GET(
         workspaceId: target.id,
       },
       select: {
+        id: true,
         user: {
           select: {
             id: true,

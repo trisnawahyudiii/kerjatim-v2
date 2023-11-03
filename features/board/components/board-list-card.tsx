@@ -1,6 +1,5 @@
 "use client";
 
-import { BoardMemberPayload, Boards } from "../core";
 import {
   Button,
   DropdownMenu,
@@ -8,68 +7,131 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui";
+import { useGetWorkspaceMember } from "@/features/workspace/hooks";
 import { MoreHorizontal, Settings2, Trash2, Users } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { BoardMemberModal } from ".";
-import { useState } from "react";
-import { useGetWorkspaceMember } from "@/features/workspace/hooks";
-import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { BoardMemberPayload, Boards } from "../core";
+import { BoardUserModal } from "@/features/board-user/components";
+import { useGetBoardUser } from "@/features/board-user/hooks";
+import { User, WorkspaceUser } from "@/features/workspace/core";
+import { BoardUser } from "@/features/board-user/core";
+import { cn } from "@/lib";
 
 type BoardListCardProps = {
   board: Boards;
 };
 
+type ModalConfigProps = {
+  workspaceMember: WorkspaceUser[];
+  boardMember: BoardUser[];
+  refetch: () => void;
+};
+
 export const BoardListCard: React.FC<BoardListCardProps> = ({ board }) => {
   const { boardId, workspaceId } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [filteredWorkspaceUser, setFilteredWorkspaceUser] = useState<
+    WorkspaceUser[]
+  >([]);
+  const [filteredBoardUser, setFilteredBoardUser] = useState<BoardUser[]>([]);
 
-  const { data: session } = useSession();
+  const {
+    data: workspaceUser,
+    isFetching: fethingWorkspaceUser,
+    refetch: refetchWorkspaceUser,
+  } = useGetWorkspaceMember(String(workspaceId), board.id === String(boardId));
 
-  const { data, isFetching, isError, error } = useGetWorkspaceMember(
-    String(workspaceId),
-    board.id === String(boardId),
-  );
-
-  const initialValue: BoardMemberPayload = {
+  const {
+    data: boardUser,
+    isFetching: fethingBoardUser,
+    refetch: refetchBoardUser,
+  } = useGetBoardUser({
     boardId: String(boardId),
-    member: [],
+    enabled: board.id === String(boardId),
+  });
+
+  const handleRefetch = () => {
+    refetchBoardUser();
+    refetchWorkspaceUser();
   };
 
-  const handleSubmit = (values: BoardMemberPayload) => {
-    console.log(values);
+  const [modalConfig, setModalConfig] = useState<ModalConfigProps>({
+    workspaceMember: [],
+    boardMember: [],
+    refetch: handleRefetch,
+  });
+
+  const areObjectsEqual = (obj1: User, obj2: User): boolean => {
+    return obj1.id === obj2.id;
   };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  useEffect(() => {
+    if (workspaceUser && boardUser) {
+      let workspaceUsers: WorkspaceUser[] = [...workspaceUser];
+
+      for (let j = 0; j < workspaceUser.length; j++) {
+        for (let i = 0; i < boardUser.length; i++) {
+          if (areObjectsEqual(boardUser[i].user, workspaceUser[j].user)) {
+            workspaceUsers = workspaceUsers.filter(
+              (member) => member.id !== workspaceUser[j].id,
+            );
+          }
+        }
+      }
+      setFilteredWorkspaceUser(workspaceUsers);
+      setFilteredBoardUser(boardUser);
+
+      setModalConfig({
+        workspaceMember: workspaceUsers,
+        boardMember: boardUser,
+        refetch: handleRefetch,
+      });
+    }
+  }, [boardUser, workspaceUser]);
 
   return (
     <Link href={`/dashboard/${workspaceId}/${board.id}`}>
-      <div className="relative flex items-center justify-between rounded-none px-4 text-base after:absolute after:bottom-0 after:left-0 after:top-0 after:w-0 after:bg-foreground after:transition-all after:duration-100 after:ease-in hover:bg-transparent hover:after:left-0 hover:after:w-1 hover:after:content-['']">
+      <div
+        className={cn(
+          "relative flex items-center justify-between rounded-none px-4 text-base after:absolute after:bottom-0 after:left-0 after:top-0 after:w-0 after:bg-foreground after:transition-all after:duration-100 after:ease-in hover:bg-foreground/5 hover:after:left-0 hover:after:w-1 hover:after:content-['']",
+          !board.isPublic ? "" : "py-2",
+        )}
+      >
         <p>{board.name}</p>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px]">
-            <BoardMemberModal
-              initialValue={initialValue}
-              availableMember={data}
-              isFetching={isFetching}
-              open={openModal}
-              setOpen={setOpenModal}
-              onSubmit={handleSubmit}
-            />
-            <DropdownMenuItem>
-              <Settings2 className="mr-3 h-5 w-5" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500 focus:text-red-500">
-              <Trash2 className="mr-3 h-5 w-5" />
-              Hapus
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {!board.isPublic ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" onClick={handleOpenModal}>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-[200px]">
+              <BoardUserModal
+                open={openModal}
+                loading={fethingBoardUser || fethingWorkspaceUser}
+                setOpen={setOpenModal}
+                refetch={modalConfig.refetch}
+                workspaceMember={modalConfig.workspaceMember}
+                boardMember={modalConfig.boardMember}
+              />
+              <DropdownMenuItem>
+                <Settings2 className="mr-3 h-5 w-5" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-red-500 focus:text-red-500">
+                <Trash2 className="mr-3 h-5 w-5" />
+                Hapus
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : null}
         {board.id == boardId ? (
           <span className="absolute bottom-0 left-0 top-0 w-1 bg-foreground hover:w-1 hover:bg-transparent hover:content-['']" />
         ) : null}

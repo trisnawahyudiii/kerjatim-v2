@@ -2,14 +2,13 @@
 
 import { MemberSelect, SelectOptions } from "@/components/member-select";
 import UnderConstruction from "@/components/under-construction";
-import { User } from "@/features/workspace/core";
 import { useGetWorkspaceMember } from "@/features/workspace/hooks";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const [memberOptions, setMemberOptions] = useState<SelectOptions[]>([]);
   const { data, isFetching } = useGetWorkspaceMember(
-    "clofl02wz0000up540nxiwlxm",
+    "clohiw8e60003dl3g2ffpla4i",
     true,
   );
 

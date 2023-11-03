@@ -1,10 +1,3 @@
-export type BoardUser = {
-  id: string;
-  userId: string;
-  workspaceId: string;
-  isAdmin: boolean;
-};
-
-export type BoardUserParams = {
-  boardId: string;
-};
+export * from "./board-user";
+export * from "./board-user-payload";
+export * from "./board-user-params";

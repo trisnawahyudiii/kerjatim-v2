@@ -6,5 +6,6 @@ export type User = {
 };
 
 export type WorkspaceUser = {
+  id: string;
   user: User;
-}[];
+};
