@@ -14,6 +14,7 @@ export async function POST(req: Request, res: Response) {
     }
 
     const body = await req.json();
+
     const {
       title,
       description,
@@ -42,8 +43,8 @@ export async function POST(req: Request, res: Response) {
 
     if (taskAssignee) {
       const taskAssigneeData: Array<{ userId: string }> = taskAssignee!.map(
-        (user) => ({
-          userId: user!,
+        ({ user }) => ({
+          userId: user.id!,
         }),
       );
 

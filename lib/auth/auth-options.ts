@@ -44,13 +44,10 @@ export const authOptions: AuthOptions = {
         },
       });
 
-      console.log("jwt callback || dbUser: ", dbUser);
-
       if (!dbUser) {
         if (user) {
           token.id = user?.id;
         }
-        console.log("user not found, returning token : ", token);
         return token;
       }
 

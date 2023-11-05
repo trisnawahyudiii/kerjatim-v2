@@ -56,20 +56,6 @@ export async function GET(
         id: true,
         name: true,
         isPublic: true,
-        BoardUser: {
-          select: {
-            id: true,
-            user: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                image: true,
-              },
-            },
-          },
-        },
-        _count: true,
       },
     });
 
@@ -84,6 +70,6 @@ export async function GET(
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }

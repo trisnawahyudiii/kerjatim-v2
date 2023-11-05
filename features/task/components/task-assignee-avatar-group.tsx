@@ -1,8 +1,9 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui";
 import { User } from "@/features/workspace/core";
+import { TaskAssignee } from "../core";
 
 type TaskAssigneeAvatarGroupProps = {
-  taskAssignee: { user: User }[];
+  taskAssignee: TaskAssignee[];
 };
 
 export const TaskAssigneeAvatarGroup: React.FC<

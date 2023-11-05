@@ -8,5 +8,5 @@ export const taskPayloadMapper = (values: Tasks): TaskPayload => ({
   progress: values.progress,
   startedAt: values.startedAt,
   endedAt: values.endedAt,
-  taskAssignee: values.taskAssignee?.map(({ user }) => ({ userId: user.id })),
+  taskAssignee: values.taskAssignee,
 });

@@ -4,6 +4,7 @@ import {
   Checklist,
   TaskComment,
 } from "@prisma/client";
+import { TaskAssignee } from ".";
 
 export type TaskPayload = {
   title: string;
@@ -15,5 +16,5 @@ export type TaskPayload = {
   endedAt?: Date | null;
   cheklist?: Pick<Checklist, "label" | "isChecked">[];
   taskComment?: Pick<TaskComment, "text">[];
-  taskAssignee?: { userId: string | undefined }[];
+  taskAssignee?: TaskAssignee[];
 };

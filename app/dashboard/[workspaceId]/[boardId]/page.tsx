@@ -1,12 +1,16 @@
 "use client";
 
+import { Skeleton } from "@/components/ui";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
 import {
   CategoryContainer,
   ModalCreateCategory,
 } from "@/features/category/components";
-import { Categories } from "@/features/category/core/categories";
+import {
+  Categories,
+  CategoryWithAttributes,
+} from "@/features/category/core/categories";
 import {
   useCreateCategory,
   useGetAllCategory,
@@ -20,6 +24,7 @@ export default function BoardPage() {
   const { toast } = useToast();
   const { data, isFetching, isError, refetch } = useGetAllCategory({
     params: { boardId: String(boardId) },
+    enabled: false,
   });
 
   const [open, setOpen] = useState<boolean>(false);
@@ -46,7 +51,7 @@ export default function BoardPage() {
   };
 
   const deleteCategory = useDeleteCategory();
-  const handleDeleteCategory = (values: Categories) => {
+  const handleDeleteCategory = (values: CategoryWithAttributes) => {
     deleteCategory.mutate(values.id!, {
       onSuccess: () => {
         toast({
@@ -65,15 +70,23 @@ export default function BoardPage() {
   return (
     <ScrollArea>
       <div className="flex gap-3 p-10">
-        {data?.map((category) => (
-          <CategoryContainer
-            workspaceId={String(workspaceId)}
-            key={category.id}
-            category={category}
-            handleDelete={handleDeleteCategory}
-            refetch={refetchCategory}
-          />
-        ))}
+        {isFetching ? (
+          <>
+            <Skeleton className="h-[200px] w-[350px]" />
+            <Skeleton className="h-[200px] w-[350px]" />
+            <Skeleton className="h-[200px] w-[350px]" />
+          </>
+        ) : (
+          data?.map((category) => (
+            <CategoryContainer
+              workspaceId={String(workspaceId)}
+              key={category.id}
+              category={category}
+              handleDelete={handleDeleteCategory}
+              refetch={refetchCategory}
+            />
+          ))
+        )}
 
         {/* modal create Category */}
         <ModalCreateCategory

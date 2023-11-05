@@ -1,14 +1,14 @@
 "use client";
 
 import { cn } from "@/lib";
-import { Tasks } from "../core";
+import { TaskWithAttributes, Tasks } from "../core";
 import { Divider } from "@/components/ui";
 import { TaskAssigneeAvatarGroup, TaskAttribute } from ".";
 import { AlignJustify, CheckSquare, MessageSquare } from "lucide-react";
 import { checklistCount } from "../utilities";
 
 interface TaskCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  task: Tasks;
+  task: TaskWithAttributes;
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({
@@ -31,29 +31,28 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         {task.description ? (
           <TaskAttribute
             icon={<AlignJustify className="h-4 w-4 " />}
-            count={1}
             text="This card has a description"
           />
         ) : null}
 
-        {task.taskComment ? (
+        {task.TaskComment.length !== 0 ? (
           <TaskAttribute
             icon={<MessageSquare className="h-4 w-4 " />}
-            count={5}
+            count={task.TaskComment.length}
             text="This card has comments"
           />
         ) : null}
 
-        {task.checkList ? (
+        {task.Checklist.length !== 0 ? (
           <TaskAttribute
             icon={<CheckSquare className="h-4 w-4 " />}
-            count={checklistCount(task.checkList)}
+            count={checklistCount(task.Checklist)}
             text="Checklist items"
           />
         ) : null}
 
-        {task.taskAssignee ? (
-          <TaskAssigneeAvatarGroup taskAssignee={task.taskAssignee} />
+        {task.TaskAssignee ? (
+          <TaskAssigneeAvatarGroup taskAssignee={task.TaskAssignee} />
         ) : null}
       </div>
     </div>

@@ -67,6 +67,6 @@ export async function GET(
       { status: 200 },
     );
   } catch (error) {
-    handleError(error, res);
+    return handleError(error, res);
   }
 }

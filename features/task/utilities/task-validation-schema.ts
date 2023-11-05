@@ -21,5 +21,14 @@ export const taskValidationSchema = yup.object().shape({
       }),
     )
     .optional(),
-  taskAssignee: yup.array().of(yup.string()).optional(),
+  taskAssignee: yup.array().of(
+    yup.object().shape({
+      user: yup.object().shape({
+        id: yup.string(),
+        name: yup.string(),
+        email: yup.string(),
+        image: yup.string(),
+      }),
+    }),
+  ),
 });

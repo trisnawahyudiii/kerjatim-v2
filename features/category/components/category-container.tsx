@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui";
 
-import { Categories } from "../core/categories";
+import { Categories, CategoryWithAttributes } from "../core/categories";
 import { cn } from "@/lib";
 import { MoreHorizontal, Settings2, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -20,12 +20,14 @@ import { ModalCrateTask, TaskCard } from "@/features/task/components";
 import { Tasks } from "@/features/task/core";
 import { useCreateTask } from "@/features/task/hooks";
 import { useToast } from "@/components/ui/use-toast";
+import { useParams } from "next/navigation";
+import { useGetBoardUser } from "@/features/board-user/hooks";
 
 interface categoryContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   workspaceId: string;
-  category: Categories;
+  category: CategoryWithAttributes;
   refetch: () => void;
-  handleDelete: (values: Categories) => void;
+  handleDelete: (values: CategoryWithAttributes) => void;
 }
 
 export const CategoryContainer: React.FC<categoryContainerProps> = ({
@@ -38,9 +40,8 @@ export const CategoryContainer: React.FC<categoryContainerProps> = ({
 }) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false); ///for delete
   const [openCreateTask, setOpenCreateTask] = useState<boolean>(false);
-  const { toast } = useToast();
 
-  const closeModal = () => setOpenCreateTask(false);
+  const { toast } = useToast();
 
   const initialTaskValue: Tasks = {
     title: "",
@@ -54,6 +55,8 @@ export const CategoryContainer: React.FC<categoryContainerProps> = ({
     taskAssignee: [],
     taskComment: [],
   };
+
+  const closeModal = () => setOpenCreateTask(false);
 
   const createTask = useCreateTask();
   const handleCreateTaskSubmit = (values: Tasks) => {
@@ -119,6 +122,7 @@ export const CategoryContainer: React.FC<categoryContainerProps> = ({
       </div>
 
       {/* task mapping */}
+
       {category.Task?.map((task) => <TaskCard key={task.id} task={task} />)}
 
       {/* button tambah task */}

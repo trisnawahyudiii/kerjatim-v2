@@ -2,10 +2,10 @@ import { HttpClientService } from "@/services";
 import { CategoryParams, CategoryPayload } from "../core";
 import { responseMapper } from "@/utilities/response-mapper";
 import { categoryPayloadMapper } from "../utilities";
-import { Categories } from "../core/categories";
+import { Categories, CategoryWithAttributes } from "../core/categories";
 
 export class CategoryService {
-  async getAll(params: CategoryParams): Promise<Categories[]> {
+  async getAll(params: CategoryParams): Promise<CategoryWithAttributes[]> {
     return await HttpClientService.get("/category/get/" + params.boardId).then(
       (res) => responseMapper(res),
     );

@@ -9,11 +9,10 @@ import {
 } from "@/components/ui";
 import { useGetWorkspaceMember } from "@/features/workspace/hooks";
 import { MoreHorizontal, Settings2, Trash2, Users } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { BoardMemberPayload, Boards } from "../core";
+import { useEffect, useState } from "react";
+import { Boards } from "../core";
 import { BoardUserModal } from "@/features/board-user/components";
 import { useGetBoardUser } from "@/features/board-user/hooks";
 import { User, WorkspaceUser } from "@/features/workspace/core";
@@ -33,11 +32,6 @@ type ModalConfigProps = {
 export const BoardListCard: React.FC<BoardListCardProps> = ({ board }) => {
   const { boardId, workspaceId } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [filteredWorkspaceUser, setFilteredWorkspaceUser] = useState<
-    WorkspaceUser[]
-  >([]);
-  const [filteredBoardUser, setFilteredBoardUser] = useState<BoardUser[]>([]);
-
   const {
     data: workspaceUser,
     isFetching: fethingWorkspaceUser,
@@ -85,8 +79,6 @@ export const BoardListCard: React.FC<BoardListCardProps> = ({ board }) => {
           }
         }
       }
-      setFilteredWorkspaceUser(workspaceUsers);
-      setFilteredBoardUser(boardUser);
 
       setModalConfig({
         workspaceMember: workspaceUsers,

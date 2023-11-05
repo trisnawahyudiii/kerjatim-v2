@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui";
 import { Label } from "@/components/ui/label";
 import {
@@ -13,7 +15,7 @@ import { format } from "date-fns";
 import { ErrorMessage, useFormikContext } from "formik";
 import { Calendar as CalendarIcon } from "lucide-react";
 import * as React from "react";
-import { Tasks } from "../core";
+import { TaskAssignee, Tasks } from "../core";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -26,9 +28,40 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { MemberSelect, SelectOptions } from "@/components/member-select";
+import { BoardUser } from "@/features/board-user/core";
+import { useEffect, useState } from "react";
+import { useGetBoardUser } from "@/features/board-user/hooks";
+import { useParams } from "next/navigation";
 
 export const FormTask = () => {
   const { values, errors, handleChange, setValues } = useFormikContext<Tasks>();
+  const [memberOptions, setMemberOptions] = useState<SelectOptions[]>([]);
+
+  const { boardId } = useParams();
+
+  const { data, isFetching } = useGetBoardUser({
+    boardId: String(boardId),
+    enabled: Boolean(String(boardId)),
+  });
+
+  useEffect(() => {
+    if (data) {
+      const options: SelectOptions[] = data!.map(({ user }) => {
+        return {
+          user,
+        };
+      });
+
+      setMemberOptions(options);
+    }
+  }, [data]);
+
+  const handleMultiSelectChange = (options: SelectOptions[]) => {
+    setValues({
+      ...values,
+      taskAssignee: options.map(({ user }) => ({ user })),
+    });
+  };
 
   return (
     <ScrollArea>
@@ -51,10 +84,12 @@ export const FormTask = () => {
         {/* task assignee */}
         <Label className="flex flex-col gap-1">
           Assignee
-          {/* <MemberSelect 
-            value={values.taskAssignee}
-
-          /> */}
+          <MemberSelect
+            multiple
+            value={values.taskAssignee!}
+            handleChange={handleMultiSelectChange}
+            options={memberOptions}
+          />
         </Label>
 
         {/* task priority, progress, endedAt, startedAt */}
@@ -195,7 +230,7 @@ export const FormTask = () => {
                   mode="single"
                   selected={new Date(String(values.endedAt))}
                   onSelect={(value) => setValues({ ...values, endedAt: value })}
-                  disabled={(date) => date < new Date()}
+                  disabled={(date) => date <= new Date()}
                   initialFocus
                 />
               </PopoverContent>
