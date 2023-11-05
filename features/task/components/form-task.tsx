@@ -59,7 +59,7 @@ export const FormTask = () => {
   const handleMultiSelectChange = (options: SelectOptions[]) => {
     setValues({
       ...values,
-      taskAssignee: options.map(({ user }) => ({ user })),
+      taskAssignee: options.map(({ user }) => ({ id: "", user })),
     });
   };
 

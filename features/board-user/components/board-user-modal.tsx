@@ -139,11 +139,11 @@ export const BoardUserModal = ({
                   <div className="flex flex-1 gap-3">
                     <Avatar className="h-7 w-7">
                       <AvatarImage
-                        src={member.user.image}
-                        alt={member.user.email}
+                        src={member.user.image ?? undefined}
+                        alt={member.user.email ?? undefined}
                       />
                       <AvatarFallback className="flex items-center justify-center text-center">
-                        {member.user.email.charAt(0).toUpperCase()}
+                        {member.user.email?.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <p>{member.user.email}</p>
@@ -168,11 +168,11 @@ export const BoardUserModal = ({
                   <div className="flex flex-1 gap-3">
                     <Avatar className="h-7 w-7">
                       <AvatarImage
-                        src={member.user.image}
-                        alt={member.user.email}
+                        src={member.user.image ?? undefined}
+                        alt={member.user.email ?? undefined}
                       />
                       <AvatarFallback className="flex items-center justify-center text-center">
-                        {member.user.email.charAt(0).toUpperCase()}
+                        {member.user.email?.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <p>{member.user.email}</p>

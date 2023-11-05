@@ -12,7 +12,6 @@ import { Form, Formik } from "formik";
 import { FormTask } from ".";
 import { taskValidationSchema } from "../utilities";
 import { Tasks } from "../core";
-import { BoardUser } from "@/features/board-user/core";
 
 type CreateTaskModalProps = {
   open: boolean;

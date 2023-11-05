@@ -79,11 +79,11 @@ export const MemberSelect: FC<MemberSelectProps> = ({
               {value.map((option) => (
                 <Avatar className="h-7 w-7" key={option.user.id}>
                   <AvatarImage
-                    src={option.user.image}
-                    alt={option.user.email}
+                    src={option.user.image ?? undefined}
+                    alt={option.user.email ?? undefined}
                   />
                   <AvatarFallback className="flex items-center justify-center text-center">
-                    {option?.user.email.charAt(0).toUpperCase()}
+                    {option?.user.email?.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               ))}
@@ -94,9 +94,12 @@ export const MemberSelect: FC<MemberSelectProps> = ({
         ) : value ? (
           <>
             <Avatar className="h-7 w-7">
-              <AvatarImage src={value?.user.image} alt={value?.user.email} />
+              <AvatarImage
+                src={value?.user.image ?? undefined}
+                alt={value?.user.email ?? undefined}
+              />
               <AvatarFallback className="flex items-center justify-center text-center">
-                {value?.user.email.charAt(0).toUpperCase()}
+                {value?.user.email?.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <p>{value?.user.email}</p>
@@ -155,9 +158,12 @@ export const MemberSelect: FC<MemberSelectProps> = ({
             }}
           >
             <Avatar className="h-7 w-7">
-              <AvatarImage src={option.user.image} alt={option.user.email} />
+              <AvatarImage
+                src={option.user?.image ?? undefined}
+                alt={option.user.email ?? undefined}
+              />
               <AvatarFallback className="flex items-center justify-center text-center">
-                {option.user?.email.charAt(0).toUpperCase()}
+                {option.user?.email?.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             {option.user.email}
